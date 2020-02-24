@@ -1,0 +1,46 @@
+.header {
+    text-align: center;
+    font-size: 2rem;
+    color: rgb(49, 9, 26)
+}
+
+.startWrapper {
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+}
+
+.startGame {
+    padding: 1rem 3rem;
+    font-size: 1rem;
+    border-radius: 20px;
+    outline: none;
+    background-color: rgb(24, 87, 223);
+}
+
+#playersWrapper {
+    display: flex;
+    justify-content: space-around;
+}
+
+.playerOne, .playerTwo {
+    padding-top: 2rem;
+}
+
+
+#playerOne {
+    padding: 1rem 3rem;
+    border-radius: 16px;
+    outline: none;
+    font-size: 1rem;
+}
+
+#playerTwo {
+    @extend #playerOne;
+}
+
+.save {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    outline: none;
+}

@@ -1,0 +1,17 @@
+#gameField {
+    padding-top: 2rem;
+    width: 90%;
+}
+
+
+.cell {
+    width: 6rem;
+    height: 6rem;
+    border: 1px solid black;
+    margin-bottom: -1rem
+}
+
+.cellsWrapper {
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,15 @@
+body {
+    background: linear-gradient(
+      -90deg,
+      rgb(255, 1, 1),
+      rgb(155, 155, 107),
+      rgb(6, 248, 67)
+    );
+    padding: 1rem;
+  };
+
+  #gameWrapper {
+      display: flex;
+  }
+
+  @import "./header.scss", "./field.scss", "./score.scss", "media.scss";
