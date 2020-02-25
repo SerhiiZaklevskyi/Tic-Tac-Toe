@@ -5,8 +5,20 @@ export default class Store {
     constructor(reducers) {
         this.reducers = reducers;
         this.state = {
-            playerOne: "",
-            playerTwo: ""
+            playerOne: "PlayerOne",
+            playerTwo: "PlayerTwo",
+            cell1: '',
+            cell2: '',
+            cell3: '',
+            cell4: '',
+            cell5: '',
+            cell6: '',
+            cell7: '',
+            cell8: '',
+            cell9: '',
+            firstPlayerMove: true,
+            counterOne: 0,
+            counterTwo: 0
         }
         this.events = new Observer()
     }

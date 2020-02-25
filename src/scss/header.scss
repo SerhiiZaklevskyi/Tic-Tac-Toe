@@ -44,3 +44,16 @@
     border-radius: 20px;
     outline: none;
 }
+
+#winner {
+    text-align: center;
+    font-size: 3rem;
+    color: rgb(83, 10, 252);
+    padding-top: 2rem;
+}
+
+.chooseSymbol {
+    padding-left: 20%;
+    font-size: 1rem;
+    display: none;
+}

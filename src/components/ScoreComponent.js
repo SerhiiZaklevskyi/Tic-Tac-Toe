@@ -9,16 +9,29 @@ export default class ScoreComponent extends mainComponent{
         );
     }
 
-    render(){
-        if(store.state.playerOne.length == 0 && store.state.playerTwo.length == 0) {
-            this.anchor.innerHTML = `
-            <p id="firstPlayer">Player one: 0</p>
-            <p id="secondPlayer">Player two : 0 </p>`
+    onInit(){
+        let playerOneName = localStorage.getItem('PlayerOneName');
+        let playerTwoName = localStorage.getItem('PlayerTwoName')
+        if(playerOneName !== null) {
+            store.dispatch('addPlayerOne', playerOneName);
         }
-        else
+        if(playerTwoName !== null) {
+            store.dispatch('addPlayerTwo', playerTwoName);
+        }
+        let counterOne = localStorage.getItem('counterOne')
+        let counterTwo = localStorage.getItem('counterTwo')
+        if(counterOne !== null){
+            store.dispatch('getCounterOne', counterOne);
+        }
+        if(counterTwo !== null){
+            store.dispatch('getCounterTwo', counterTwo)
+        }
+    }
+
+    render(){
         this.anchor.innerHTML = `
-        <p id="firstPlayer">${store.state.playerOne}: 0</p>
-        <p id="secondPlayer">${store.state.playerTwo} : 0 </p>
+        <p id="firstPlayer">${store.state.playerOne}: ${store.state.counterOne}</p>
+        <p id="secondPlayer">${store.state.playerTwo} : ${store.state.counterTwo} </p>
         `
     }
 }
