@@ -1,6 +1,6 @@
 import mainComponent from "./mainComponent"
 import store from "../Store/index"
-
+import {ticTacToeGrid} from "./tic-tac-toe-grid"
 export default class FieldComponent extends mainComponent{
     constructor(anchor){
         super(
@@ -9,45 +9,12 @@ export default class FieldComponent extends mainComponent{
         );
     }
     onInit(){
-      let cellOne = localStorage.getItem('cellOne')
-      let cellTwo = localStorage.getItem('cellTwo')
-      let cellThree = localStorage.getItem('cellThree')
-      let cellFour = localStorage.getItem('cellFour')
-      let cellFive = localStorage.getItem('cellFive')
-      let cellSix= localStorage.getItem('cellSix')
-      let cellSeven = localStorage.getItem('cellSeven')
-      let cellEight = localStorage.getItem('cellEight')
-      let cellNine= localStorage.getItem('cellNine')
-      if(cellOne !== null){
-        store.dispatch('changeCellOne', cellOne)
-      }
-      if(cellTwo !== null){
-        store.dispatch('changeCellTwo', cellTwo)
-      }
-      if(cellThree !== null){
-        store.dispatch('changeCellThree', cellThree)
-      }
-      if(cellFour !== null){
-        store.dispatch('changeCellFour', cellFour)
-      }
-      if(cellFive !== null){
-        store.dispatch('changeCellFive', cellFive)
-      }
-      if(cellSix !== null){
-        store.dispatch('changeCellSix', cellSix)
-      }
-      if(cellSeven !== null){
-        store.dispatch('changeCellSeven', cellSeven)
-      }
-      if(cellEight !== null){
-        store.dispatch('changeCellEight', cellEight)
-      }
-      if(cellNine !== null){
-        store.dispatch('changeCellNine', cellNine)
-      }
+      ticTacToeGrid.forEach(item => {
+        if(item.value !== null) {
+          store.dispatch(item.field, item.value)
+        }
+      })
     }
-
-
 
     render(){
       this.anchor.innerHTML = `
@@ -70,9 +37,6 @@ export default class FieldComponent extends mainComponent{
       </div>
       `
 
-        
-
-
         function switching(event) {
           if(event.target.classList.contains('cell')){
             let target;
@@ -83,7 +47,6 @@ export default class FieldComponent extends mainComponent{
               };
               store.dispatch('switchPlayer', false)
             }
-
             else if (store.state.firstPlayerMove === false && event.target.innerText == ''){
               target = {
                 id: event.target.id,
@@ -91,163 +54,92 @@ export default class FieldComponent extends mainComponent{
               };
               store.dispatch('switchPlayer', true)
             }
-
             else return;
-
             switch(target.id){
-              case '1':
-                store.dispatch('changeCellOne', target.value);
-                localStorage.setItem('cellOne', target.value)
-                break;
-             case '2':
-                store.dispatch('changeCellTwo', target.value);
-                localStorage.setItem('cellTwo', target.value)
-                break;
-             case '3':
-                store.dispatch('changeCellThree', target.value);
-                localStorage.setItem('cellThree', target.value)
-                break;
-             case '4':
-                store.dispatch('changeCellFour', target.value);
-                localStorage.setItem('cellFour', target.value)
-                break;
-             case '5':
-                store.dispatch('changeCellFive', target.value);
-                localStorage.setItem('cellFive', target.value)
-                break;
-             case '6':
-                store.dispatch('changeCellSix', target.value);
-                localStorage.setItem('cellSix', target.value)
-                break;
-             case '7':
-                store.dispatch('changeCellSeven', target.value);
-                localStorage.setItem('cellSeven', target.value)
-                break;
-             case '8':
-                store.dispatch('changeCellEight', target.value);
-                localStorage.setItem('cellEight', target.value)
-                break;
-             case '9':
-                store.dispatch('changeCellNine', target.value);
-                localStorage.setItem('cellNine', target.value)
-                break;
-            }
+    case '1':
+      store.dispatch('changeCellOne', target.value);
+      localStorage.setItem('cellOne', target.value)
+      break;
+   case '2':
+      store.dispatch('changeCellTwo', target.value);
+      localStorage.setItem('cellTwo', target.value)
+      break;
+   case '3':
+      store.dispatch('changeCellThree', target.value);
+      localStorage.setItem('cellThree', target.value)
+      break;
+   case '4':
+      store.dispatch('changeCellFour', target.value);
+      localStorage.setItem('cellFour', target.value)
+      break;
+   case '5':
+      store.dispatch('changeCellFive', target.value);
+      localStorage.setItem('cellFive', target.value)
+      break;
+   case '6':
+      store.dispatch('changeCellSix', target.value);
+      localStorage.setItem('cellSix', target.value)
+      break;
+   case '7':
+      store.dispatch('changeCellSeven', target.value);
+      localStorage.setItem('cellSeven', target.value)
+      break;
+   case '8':
+      store.dispatch('changeCellEight', target.value);
+      localStorage.setItem('cellEight', target.value)
+      break;
+   case '9':
+      store.dispatch('changeCellNine', target.value);
+      localStorage.setItem('cellNine', target.value)
+      break;
+  }
           }
         }
 
 
-        function playerOneWin() {
-          if(store.state.cell1 === 'X' && store.state.cell2 === 'X' && store.state.cell3 === 'X'){
+        function checkWinner() {
+          const firstRow = []
+          firstRow.push(store.state.cell1, store.state.cell2, store.state.cell3)
+          const secondRow =[]
+          secondRow.push(store.state.cell4, store.state.cell5, store.state.cell6)
+          const thirdRow =[]
+          thirdRow.push(store.state.cell7, store.state.cell8, store.state.cell9)
+          const forthRow = []
+          forthRow.push(store.state.cell1, store.state.cell4, store.state.cell7)
+          const fifthRow = []
+          fifthRow.push(store.state.cell2, store.state.cell5, store.state.cell8)
+          const sixthRow =[]
+          sixthRow.push(store.state.cell3, store.state.cell6, store.state.cell9)
+          const seventhRow =[]
+          seventhRow.push(store.state.cell1, store.state.cell5, store.state.cell9)
+          const eightRow = []
+          eightRow.push(store.state.cell3, store.state.cell5, store.state.cell7)
+
+          if(firstRow.every(item => item == 'X') ||
+             secondRow.every(item => item == 'X') ||
+             thirdRow.every(item => item == 'X') ||
+             forthRow.every(item => item == 'X') ||
+             fifthRow.every(item => item == 'X') ||
+             sixthRow.every(item => item == 'X') ||
+             seventhRow.every(item => item == 'X') ||
+             eightRow.every(item => item == 'X')
+          ){
             document.querySelector('#winner').innerText = `${store.state.playerOne} WON!`;
             store.state.counterOne++
             localStorage.setItem('counterOne', store.state.counterOne)
             store.dispatch('resetGame', 1)
             localStorage.removeItem('cellOne'); localStorage.removeItem('cellTwo');localStorage.removeItem('cellThree');localStorage.removeItem('cellFour');localStorage.removeItem('cellFive');localStorage.removeItem('cellSix');localStorage.removeItem('cellSeven');localStorage.removeItem('cellEight');localStorage.removeItem('cellNine');
           }
-          else if(store.state.cell4 === 'X' && store.state.cell5 === 'X' && store.state.cell6 === 'X'){
-            document.querySelector('#winner').innerText = `${store.state.playerOne} WON!`
-            store.state.counterOne++
-            localStorage.setItem('counterOne', store.state.counterOne)
-            store.dispatch('resetGame', 1)
-            localStorage.removeItem('cellOne'); localStorage.removeItem('cellTwo');localStorage.removeItem('cellThree');localStorage.removeItem('cellFour');localStorage.removeItem('cellFive');localStorage.removeItem('cellSix');localStorage.removeItem('cellSeven');localStorage.removeItem('cellEight');localStorage.removeItem('cellNine');
-          }
-          else if(store.state.cell7 === 'X' && store.state.cell8 === 'X' && store.state.cell9 === 'X'){
-            document.querySelector('#winner').innerText = `${store.state.playerOne} WON!`
-            store.state.counterOne++
-            localStorage.setItem('counterOne', store.state.counterOne)
-            store.dispatch('resetGame', 1)
-            localStorage.removeItem('cellOne'); localStorage.removeItem('cellTwo');localStorage.removeItem('cellThree');localStorage.removeItem('cellFour');localStorage.removeItem('cellFive');localStorage.removeItem('cellSix');localStorage.removeItem('cellSeven');localStorage.removeItem('cellEight');localStorage.removeItem('cellNine');
-          }
-          else if(store.state.cell1 === 'X' && store.state.cell4 === 'X' && store.state.cell7 === 'X'){
-            document.querySelector('#winner').innerText = `${store.state.playerOne} WON!`
-            store.state.counterOne++
-            localStorage.setItem('counterOne', store.state.counterOne)
-            store.dispatch('resetGame', 1)
-            localStorage.removeItem('cellOne'); localStorage.removeItem('cellTwo');localStorage.removeItem('cellThree');localStorage.removeItem('cellFour');localStorage.removeItem('cellFive');localStorage.removeItem('cellSix');localStorage.removeItem('cellSeven');localStorage.removeItem('cellEight');localStorage.removeItem('cellNine');
-          }
-          else if(store.state.cell2 === 'X' && store.state.cell5 === 'X' && store.state.cell8 === 'X'){
-            document.querySelector('#winner').innerText = `${store.state.playerOne} WON!`
-            store.state.counterOne++
-            localStorage.setItem('counterOne', store.state.counterOne)
-            store.dispatch('resetGame', 1)
-            localStorage.removeItem('cellOne'); localStorage.removeItem('cellTwo');localStorage.removeItem('cellThree');localStorage.removeItem('cellFour');localStorage.removeItem('cellFive');localStorage.removeItem('cellSix');localStorage.removeItem('cellSeven');localStorage.removeItem('cellEight');localStorage.removeItem('cellNine');
-          }
-          else if(store.state.cell3 === 'X' && store.state.cell6 === 'X' && store.state.cell9 === 'X'){
-            document.querySelector('#winner').innerText = `${store.state.playerOne} WON!`
-            store.state.counterOne++
-            localStorage.setItem('counterOne', store.state.counterOne)
-            store.dispatch('resetGame', 1)
-            localStorage.removeItem('cellOne'); localStorage.removeItem('cellTwo');localStorage.removeItem('cellThree');localStorage.removeItem('cellFour');localStorage.removeItem('cellFive');localStorage.removeItem('cellSix');localStorage.removeItem('cellSeven');localStorage.removeItem('cellEight');localStorage.removeItem('cellNine');
-          }
-          else if(store.state.cell1 === 'X' && store.state.cell5 === 'X' && store.state.cell9 === 'X'){
-            document.querySelector('#winner').innerText = `${store.state.playerOne} WON!`
-            store.state.counterOne++
-            localStorage.setItem('counterOne', store.state.counterOne)
-            store.dispatch('resetGame', 1)
-            localStorage.removeItem('cellOne'); localStorage.removeItem('cellTwo');localStorage.removeItem('cellThree');localStorage.removeItem('cellFour');localStorage.removeItem('cellFive');localStorage.removeItem('cellSix');localStorage.removeItem('cellSeven');localStorage.removeItem('cellEight');localStorage.removeItem('cellNine');
-          }
-          else if(store.state.cell3 === 'X' && store.state.cell5 === 'X' && store.state.cell7 === 'X'){
-            document.querySelector('#winner').innerText = `${store.state.playerOne} WON!`
-            store.state.counterOne++
-            localStorage.setItem('counterOne', store.state.counterOne)
-            store.dispatch('resetGame', 1)
-            localStorage.removeItem('cellOne'); localStorage.removeItem('cellTwo');localStorage.removeItem('cellThree');localStorage.removeItem('cellFour');localStorage.removeItem('cellFive');localStorage.removeItem('cellSix');localStorage.removeItem('cellSeven');localStorage.removeItem('cellEight');localStorage.removeItem('cellNine');
-          }
-        }
-
-
-
-        function playerTwoWin() {
-          if(store.state.cell1 === 'O' && store.state.cell2 === 'O' && store.state.cell3 === 'O'){
-            document.querySelector('#winner').innerText = `${store.state.playerTwo} WON!`
-            store.state.counterTwo++
-            localStorage.setItem('counterTwo', store.state.counterTwo)
-            store.dispatch('resetGame', 1)
-            localStorage.removeItem('cellOne'); localStorage.removeItem('cellTwo');localStorage.removeItem('cellThree');localStorage.removeItem('cellFour');localStorage.removeItem('cellFive');localStorage.removeItem('cellSix');localStorage.removeItem('cellSeven');localStorage.removeItem('cellEight');localStorage.removeItem('cellNine');
-          }
-          else if(store.state.cell4 === 'O' && store.state.cell5 === 'O' && store.state.cell6 === 'O'){
-            document.querySelector('#winner').innerText = `${store.state.playerTwo} WON!`
-            store.state.counterTwo++
-            localStorage.setItem('counterTwo', store.state.counterTwo)
-            store.dispatch('resetGame', 1)
-            localStorage.removeItem('cellOne'); localStorage.removeItem('cellTwo');localStorage.removeItem('cellThree');localStorage.removeItem('cellFour');localStorage.removeItem('cellFive');localStorage.removeItem('cellSix');localStorage.removeItem('cellSeven');localStorage.removeItem('cellEight');localStorage.removeItem('cellNine');
-          }
-          else if(store.state.cell7 === 'O' && store.state.cell8 === 'O' && store.state.cell9 === 'O'){
-            document.querySelector('#winner').innerText = `${store.state.playerTwo} WON!`
-            store.state.counterTwo++
-            localStorage.setItem('counterTwo', store.state.counterTwo)
-            store.dispatch('resetGame', 1)
-            localStorage.removeItem('cellOne'); localStorage.removeItem('cellTwo');localStorage.removeItem('cellThree');localStorage.removeItem('cellFour');localStorage.removeItem('cellFive');localStorage.removeItem('cellSix');localStorage.removeItem('cellSeven');localStorage.removeItem('cellEight');localStorage.removeItem('cellNine');
-          }
-          else if(store.state.cell1 === 'O' && store.state.cell4 === 'O' && store.state.cell7 === 'O'){
-            document.querySelector('#winner').innerText = `${store.state.playerTwo} WON!`
-            store.state.counterTwo++
-            localStorage.setItem('counterTwo', store.state.counterTwo)
-            store.dispatch('resetGame', 1)
-            localStorage.removeItem('cellOne'); localStorage.removeItem('cellTwo');localStorage.removeItem('cellThree');localStorage.removeItem('cellFour');localStorage.removeItem('cellFive');localStorage.removeItem('cellSix');localStorage.removeItem('cellSeven');localStorage.removeItem('cellEight');localStorage.removeItem('cellNine');
-          }
-          else if(store.state.cell2 === 'O' && store.state.cell5 === 'O' && store.state.cell8 === 'O'){
-            document.querySelector('#winner').innerText = `${store.state.playerTwo} WON!`
-            store.state.counterTwo++
-            localStorage.setItem('counterTwo', store.state.counterTwo)
-            store.dispatch('resetGame', 1)
-            localStorage.removeItem('cellOne'); localStorage.removeItem('cellTwo');localStorage.removeItem('cellThree');localStorage.removeItem('cellFour');localStorage.removeItem('cellFive');localStorage.removeItem('cellSix');localStorage.removeItem('cellSeven');localStorage.removeItem('cellEight');localStorage.removeItem('cellNine');
-          }
-          else if(store.state.cell3 === 'O' && store.state.cell6 === 'O' && store.state.cell9 === 'O'){
-            document.querySelector('#winner').innerText = `${store.state.playerTwo} WON!`
-            store.state.counterTwo++
-            localStorage.setItem('counterTwo', store.state.counterTwo)
-            store.dispatch('resetGame', 1)
-            localStorage.removeItem('cellOne'); localStorage.removeItem('cellTwo');localStorage.removeItem('cellThree');localStorage.removeItem('cellFour');localStorage.removeItem('cellFive');localStorage.removeItem('cellSix');localStorage.removeItem('cellSeven');localStorage.removeItem('cellEight');localStorage.removeItem('cellNine');
-          }
-          else if(store.state.cell1 === 'O' && store.state.cell5 === 'O' && store.state.cell9 === 'O'){
-            document.querySelector('#winner').innerText = `${store.state.playerTwo} WON!`
-            store.state.counterTwo++
-            localStorage.setItem('counterTwo', store.state.counterTwo)
-            store.dispatch('resetGame', 1)
-            localStorage.removeItem('cellOne'); localStorage.removeItem('cellTwo');localStorage.removeItem('cellThree');localStorage.removeItem('cellFour');localStorage.removeItem('cellFive');localStorage.removeItem('cellSix');localStorage.removeItem('cellSeven');localStorage.removeItem('cellEight');localStorage.removeItem('cellNine');
-          }
-          else if(store.state.cell3 === 'O' && store.state.cell5 === 'O' && store.state.cell7 === 'O'){
+          else if(
+            firstRow.every(item => item == 'O') ||
+             secondRow.every(item => item == 'O') ||
+             thirdRow.every(item => item == 'O') ||
+             forthRow.every(item => item == 'O') ||
+             fifthRow.every(item => item == 'O') ||
+             sixthRow.every(item => item == 'O') ||
+             seventhRow.every(item => item == 'O') ||
+             eightRow.every(item => item == 'O')     
+          ){
             document.querySelector('#winner').innerText = `${store.state.playerTwo} WON!`
             store.state.counterTwo++
             localStorage.setItem('counterTwo', store.state.counterTwo)
@@ -256,10 +148,12 @@ export default class FieldComponent extends mainComponent{
           }
         }
 
+
+
+       
 
         this.anchor.querySelector('.cellsWrapper').addEventListener('click', switching)
-        this.anchor.querySelector('.cellsWrapper').addEventListener('click', playerOneWin)
-        this.anchor.querySelector('.cellsWrapper').addEventListener('click', playerTwoWin)
+        this.anchor.querySelector('.cellsWrapper').addEventListener('click', checkWinner)
         
     }
 }

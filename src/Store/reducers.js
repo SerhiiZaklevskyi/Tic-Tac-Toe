@@ -59,6 +59,7 @@ export default function createReducers() {
       cell7: '',
       cell8: '',
       cell9: '',
+      firstPlayerMove: true
     }),
     getCounterOne:(payload,state) => ({
       ...state,
