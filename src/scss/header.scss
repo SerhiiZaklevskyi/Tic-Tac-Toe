@@ -10,7 +10,7 @@
     padding-top: 2rem;
 }
 
-.startGame {
+.resetGame {
     padding: 1rem 3rem;
     font-size: 1rem;
     border-radius: 20px;
@@ -41,6 +41,7 @@
 
 .save {
     padding: 0.5rem 1rem;
+    font-size: 1rem;
     border-radius: 20px;
     outline: none;
 }
@@ -56,4 +57,16 @@
     padding-left: 20%;
     font-size: 1rem;
     display: none;
+}
+
+.x-button {
+    padding: 0.5rem 1rem;
+    background-color: blue;
+    border-radius: 20px;
+}
+
+.o-button {
+    padding: 0.5rem 1rem;
+    background-color:red;
+    border-radius: 20px;
 }

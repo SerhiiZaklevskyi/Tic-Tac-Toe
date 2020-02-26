@@ -4,50 +4,62 @@ export default function createReducers() {
             ...state,
             playerOne: payload
     }),
+
     addPlayerTwo: (payload, state) => ({
         ...state,
         playerTwo: payload
-   }),
-   changeCellOne: (payload,state) => ({
+    }),
+
+    changeCellOne: (payload,state) => ({
        ...state,
       cell1: payload
-   }),
-   changeCellTwo: (payload,state) => ({
-    ...state,
-   cell2: payload
-   }),
-  changeCellThree: (payload,state) => ({
-    ...state,
-   cell3: payload
-  }),
-  changeCellFour: (payload,state) => ({
-    ...state,
-   cell4: payload
-  }),
-  changeCellFive: (payload,state) => ({
-    ...state,
-   cell5: payload
-  }),
-  changeCellSix: (payload,state) => ({
-    ...state,
-   cell6: payload
-  }),
-  changeCellSeven: (payload,state) => ({
-    ...state,
-   cell7: payload
-  }),
-  changeCellEight: (payload,state) => ({
-    ...state,
-   cell8: payload
-  }),
-  changeCellNine: (payload,state) => ({
-    ...state,
-   cell9: payload
     }),
+
+    changeCellTwo: (payload,state) => ({
+       ...state,
+      cell2: payload
+    }),
+
+    changeCellThree: (payload,state) => ({
+       ...state,
+      cell3: payload
+    }),
+
+    changeCellFour: (payload,state) => ({
+      ...state,
+      cell4: payload
+    }),
+
+    changeCellFive: (payload,state) => ({
+      ...state,
+      cell5: payload
+    }),
+
+    changeCellSix: (payload,state) => ({
+      ...state,
+      cell6: payload
+    }),
+
+    changeCellSeven: (payload,state) => ({
+      ...state,
+      cell7: payload
+    }),
+
+    changeCellEight: (payload,state) => ({
+      ...state,
+      cell8: payload
+    }),
+
+    changeCellNine: (payload,state) => ({
+      ...state,
+      cell9: payload
+    }),
+
     switchPlayer: (payload, state) => ({
       ...state,
       firstPlayerMove: payload
     }),
+
     resetGame: (payload,state) => ({
       ...state,
       cell1: '',
@@ -59,12 +71,15 @@ export default function createReducers() {
       cell7: '',
       cell8: '',
       cell9: '',
-      firstPlayerMove: true
+      firstPlayerMove: payload,
+      firstPlayerX: payload
     }),
+
     getCounterOne:(payload,state) => ({
       ...state,
       counterOne: payload
     }),
+
     getCounterTwo:(payload,state) => ({
       ...state,
       counterTwo: payload
@@ -85,8 +100,12 @@ export default function createReducers() {
       cell9: '',
       firstPlayerMove: true,
       counterOne: 0,
-      counterTwo: 0
-      
+      counterTwo: 0,
+    }),
+    
+    firstPlayerChoseX: (payload, state) => ({
+      ...state,
+      firstPlayerX: payload
     })
    }
 }

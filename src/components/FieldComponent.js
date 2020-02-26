@@ -1,6 +1,10 @@
 import mainComponent from "./mainComponent"
 import store from "../Store/index"
 import {ticTacToeGrid} from "./tic-tac-toe-grid"
+import {clearCells} from "./clearCells"
+import {cellHandler} from "./cellHandler"
+import {firstPlayerWin} from "./firstPlayerWIn"
+import {secondPlayerWin} from "./secondPlayerWin"
 export default class FieldComponent extends mainComponent{
     constructor(anchor){
         super(
@@ -55,44 +59,7 @@ export default class FieldComponent extends mainComponent{
               store.dispatch('switchPlayer', true)
             }
             else return;
-            switch(target.id){
-    case '1':
-      store.dispatch('changeCellOne', target.value);
-      localStorage.setItem('cellOne', target.value)
-      break;
-   case '2':
-      store.dispatch('changeCellTwo', target.value);
-      localStorage.setItem('cellTwo', target.value)
-      break;
-   case '3':
-      store.dispatch('changeCellThree', target.value);
-      localStorage.setItem('cellThree', target.value)
-      break;
-   case '4':
-      store.dispatch('changeCellFour', target.value);
-      localStorage.setItem('cellFour', target.value)
-      break;
-   case '5':
-      store.dispatch('changeCellFive', target.value);
-      localStorage.setItem('cellFive', target.value)
-      break;
-   case '6':
-      store.dispatch('changeCellSix', target.value);
-      localStorage.setItem('cellSix', target.value)
-      break;
-   case '7':
-      store.dispatch('changeCellSeven', target.value);
-      localStorage.setItem('cellSeven', target.value)
-      break;
-   case '8':
-      store.dispatch('changeCellEight', target.value);
-      localStorage.setItem('cellEight', target.value)
-      break;
-   case '9':
-      store.dispatch('changeCellNine', target.value);
-      localStorage.setItem('cellNine', target.value)
-      break;
-  }
+            cellHandler[target.id](target.value)
           }
         }
 
@@ -123,12 +90,9 @@ export default class FieldComponent extends mainComponent{
              sixthRow.every(item => item == 'X') ||
              seventhRow.every(item => item == 'X') ||
              eightRow.every(item => item == 'X')
-          ){
-            document.querySelector('#winner').innerText = `${store.state.playerOne} WON!`;
-            store.state.counterOne++
-            localStorage.setItem('counterOne', store.state.counterOne)
-            store.dispatch('resetGame', 1)
-            localStorage.removeItem('cellOne'); localStorage.removeItem('cellTwo');localStorage.removeItem('cellThree');localStorage.removeItem('cellFour');localStorage.removeItem('cellFive');localStorage.removeItem('cellSix');localStorage.removeItem('cellSeven');localStorage.removeItem('cellEight');localStorage.removeItem('cellNine');
+            ){
+                store.state.firstPlayerX === true ? firstPlayerWin() : secondPlayerWin();
+                clearCells()
           }
           else if(
             firstRow.every(item => item == 'O') ||
@@ -139,18 +103,11 @@ export default class FieldComponent extends mainComponent{
              sixthRow.every(item => item == 'O') ||
              seventhRow.every(item => item == 'O') ||
              eightRow.every(item => item == 'O')     
-          ){
-            document.querySelector('#winner').innerText = `${store.state.playerTwo} WON!`
-            store.state.counterTwo++
-            localStorage.setItem('counterTwo', store.state.counterTwo)
-            store.dispatch('resetGame', 1)
-            localStorage.removeItem('cellOne'); localStorage.removeItem('cellTwo');localStorage.removeItem('cellThree');localStorage.removeItem('cellFour');localStorage.removeItem('cellFive');localStorage.removeItem('cellSix');localStorage.removeItem('cellSeven');localStorage.removeItem('cellEight');localStorage.removeItem('cellNine');
+          ){      
+            store.state.firstPlayerX === true ? secondPlayerWin() : firstPlayerWin();      
+            clearCells()
           }
         }
-
-
-
-       
 
         this.anchor.querySelector('.cellsWrapper').addEventListener('click', switching)
         this.anchor.querySelector('.cellsWrapper').addEventListener('click', checkWinner)

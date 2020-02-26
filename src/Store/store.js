@@ -18,7 +18,8 @@ export default class Store {
                 cell9: '',
             firstPlayerMove: true,
             counterOne: 0,
-            counterTwo: 0
+            counterTwo: 0,
+            firstPlayerX: true
         }
         this.events = new Observer()
     }
