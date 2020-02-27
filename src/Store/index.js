@@ -1,4 +1,4 @@
-import Store from "./store"
-import createReducers from "./reducers"
+import Store from "./store";
+import createReducers from "./reducers";
 
-export default new Store(createReducers())
+export default new Store(createReducers());

@@ -1,11 +1,15 @@
-export function clearCells() {
-    localStorage.removeItem('cellOne');
-     localStorage.removeItem('cellTwo');
-     localStorage.removeItem('cellThree');
-     localStorage.removeItem('cellFour');
-     localStorage.removeItem('cellFive');
-     localStorage.removeItem('cellSix');
-    localStorage.removeItem('cellSeven');
-    localStorage.removeItem('cellEight');
-    localStorage.removeItem('cellNine')
+const remove = value => localStorage.removeItem(value);
+
+function clearCells() {
+  remove("cellOne");
+  remove("cellTwo");
+  remove("cellThree");
+  remove("cellFour");
+  remove("cellFive");
+  remove("cellSix");
+  remove("cellSeven");
+  remove("cellEight");
+  remove("cellNine");
 }
+
+export default clearCells;

@@ -1,11 +1,11 @@
-import HeaderComponent from "./components/HeaderComponent"
-import FieldComponent from "./components/FieldComponent"
-import ScoreComponent from "./components/ScoreComponent"
+import HeaderComponent from './components/HeaderComponent';
+import FieldComponent from './components/FieldComponent';
+import ScoreComponent from './components/ScoreComponent';
 
 
 const Header = new HeaderComponent();
-Header.render()
+Header.render();
 const Field = new FieldComponent();
-Field.render()
+Field.render();
 const Score = new ScoreComponent();
-Score.render()
+Score.render();

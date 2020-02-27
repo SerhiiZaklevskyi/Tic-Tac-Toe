@@ -1,41 +1,19 @@
-import store from "../Store/index"
+import store from "../Store/index";
 
+const triggerAction = (value, actionType, cellName) => {
+  store.dispatch(actionType, value);
+  localStorage.setItem(cellName, value);
+};
 
-export const cellHandler = {
-    1:  (value) => {
-      store.dispatch('changeCellOne', value)
-      localStorage.setItem('cellOne', value)
-    },
-    2 : (value) => {
-      store.dispatch('changeCellTwo', value)
-      localStorage.setItem('cellTwo', value)
-    },
-    3 : (value) => {
-      store.dispatch('changeCellThree', value)
-      localStorage.setItem('cellThree', value)
-    },
-    4 : (value) => {
-      store.dispatch('changeCellFour', value)
-      localStorage.setItem('cellFour', value)
-    },
-    5 : (value) => {
-      store.dispatch('changeCellFive', value)
-      localStorage.setItem('cellFive', value)
-    },
-    6 : (value) => {
-      store.dispatch('changeCellSix', value)
-      localStorage.setItem('cellSix', value)
-    },
-    7 : (value) => {
-      store.dispatch('changeCellSeven', value)
-      localStorage.setItem('cellSeven', value)
-    },
-    8 : (value) => {
-      store.dispatch('changeCellEight', value)
-      localStorage.setItem('cellEight', value)
-    },
-    9 : (value) => {
-      store.dispatch('changeCellNine', value)
-      localStorage.setItem('cellNine', value)
-    }
-  }
+const cellHandler = {
+  1: value => triggerAction(value, "changeCellOne", "cellOne"),
+  2: value => triggerAction(value, "changeCellTwo", "cellTwo"),
+  3: value => triggerAction(value, "changeCellThree", "cellThree"),
+  4: value => triggerAction(value, "changeCellFour", "cellFive"),
+  5: value => triggerAction(value, "changeCellFive", "cellFive"),
+  6: value => triggerAction(value, "changeCellSix", "cellSix"),
+  7: value => triggerAction(value, "changeCellSeven", "cellSeven"),
+  8: value => triggerAction(value, "changeCellEight", "cellEight"),
+  9: value => triggerAction(value, "changeCellNine", "cellNine")
+};
+export default cellHandler;

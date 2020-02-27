@@ -1,56 +1,56 @@
 export default function createReducers() {
-    return {
+  return {
     addPlayerOne: (payload, state) => ({
-            ...state,
-            playerOne: payload
+      ...state,
+      playerOne: payload
     }),
 
     addPlayerTwo: (payload, state) => ({
-        ...state,
-        playerTwo: payload
+      ...state,
+      playerTwo: payload
     }),
 
-    changeCellOne: (payload,state) => ({
-       ...state,
+    changeCellOne: (payload, state) => ({
+      ...state,
       cell1: payload
     }),
 
-    changeCellTwo: (payload,state) => ({
-       ...state,
+    changeCellTwo: (payload, state) => ({
+      ...state,
       cell2: payload
     }),
 
-    changeCellThree: (payload,state) => ({
-       ...state,
+    changeCellThree: (payload, state) => ({
+      ...state,
       cell3: payload
     }),
 
-    changeCellFour: (payload,state) => ({
+    changeCellFour: (payload, state) => ({
       ...state,
       cell4: payload
     }),
 
-    changeCellFive: (payload,state) => ({
+    changeCellFive: (payload, state) => ({
       ...state,
       cell5: payload
     }),
 
-    changeCellSix: (payload,state) => ({
+    changeCellSix: (payload, state) => ({
       ...state,
       cell6: payload
     }),
 
-    changeCellSeven: (payload,state) => ({
+    changeCellSeven: (payload, state) => ({
       ...state,
       cell7: payload
     }),
 
-    changeCellEight: (payload,state) => ({
+    changeCellEight: (payload, state) => ({
       ...state,
       cell8: payload
     }),
 
-    changeCellNine: (payload,state) => ({
+    changeCellNine: (payload, state) => ({
       ...state,
       cell9: payload
     }),
@@ -60,52 +60,52 @@ export default function createReducers() {
       firstPlayerMove: payload
     }),
 
-    resetGame: (payload,state) => ({
+    resetGame: (payload, state) => ({
       ...state,
-      cell1: '',
-      cell2: '',
-      cell3: '',
-      cell4: '',
-      cell5: '',
-      cell6: '',
-      cell7: '',
-      cell8: '',
-      cell9: '',
+      cell1: "",
+      cell2: "",
+      cell3: "",
+      cell4: "",
+      cell5: "",
+      cell6: "",
+      cell7: "",
+      cell8: "",
+      cell9: "",
       firstPlayerMove: payload,
       firstPlayerX: payload
     }),
 
-    getCounterOne:(payload,state) => ({
+    getCounterOne: (payload, state) => ({
       ...state,
       counterOne: payload
     }),
 
-    getCounterTwo:(payload,state) => ({
+    getCounterTwo: (payload, state) => ({
       ...state,
       counterTwo: payload
     }),
 
-    restartGame: (payload,state) => ({
+    restartGame: (payload, state) => ({
       ...state,
       playerOne: "PlayerOne",
       playerTwo: "PlayerTwo",
-      cell1: '',
-      cell2: '',
-      cell3: '',
-      cell4: '',
-      cell5: '',
-      cell6: '',
-      cell7: '',
-      cell8: '',
-      cell9: '',
+      cell1: "",
+      cell2: "",
+      cell3: "",
+      cell4: "",
+      cell5: "",
+      cell6: "",
+      cell7: "",
+      cell8: "",
+      cell9: "",
       firstPlayerMove: true,
       counterOne: 0,
-      counterTwo: 0,
+      counterTwo: 0
     }),
-    
+
     firstPlayerChoseX: (payload, state) => ({
       ...state,
       firstPlayerX: payload
     })
-   }
+  };
 }
