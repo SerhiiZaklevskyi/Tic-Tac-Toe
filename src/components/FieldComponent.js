@@ -8,6 +8,8 @@ import cellHandler from "./cellHandler";
 // eslint-disable-next-line import/no-named-as-default
 import firstPlayerWin from "./firstPlayerWIn";
 import secondPlayerWin from "./secondPlayerWin";
+import checkComboX from "./comboX";
+import checkComboO from "./comboO";
 
 export default class FieldComponent extends mainComponent {
   constructor() {
@@ -51,50 +53,54 @@ export default class FieldComponent extends mainComponent {
       .addEventListener("click", this.switching);
     this.anchor
       .querySelector(".cellsWrapper")
-      .addEventListener("click", this.checkWinner);
+      .addEventListener("click", this.checkPlayerOneWin);
+    this.anchor
+      .querySelector(".cellsWrapper")
+      .addEventListener("click", this.checkPlayerTwoWin);
   }
 
-  checkWinner() {
-    const checkEveryX = item => item === "X";
-    const checkEveryO = item => item === "O";
-    const firstRow = [];
-    firstRow.push(store.state.cell1, store.state.cell2, store.state.cell3);
-    const secondRow = [];
-    secondRow.push(store.state.cell4, store.state.cell5, store.state.cell6);
-    const thirdRow = [];
-    thirdRow.push(store.state.cell7, store.state.cell8, store.state.cell9);
-    const forthRow = [];
-    forthRow.push(store.state.cell1, store.state.cell4, store.state.cell7);
-    const fifthRow = [];
-    fifthRow.push(store.state.cell2, store.state.cell5, store.state.cell8);
-    const sixthRow = [];
-    sixthRow.push(store.state.cell3, store.state.cell6, store.state.cell9);
-    const seventhRow = [];
-    seventhRow.push(store.state.cell1, store.state.cell5, store.state.cell9);
-    const eightRow = [];
-    eightRow.push(store.state.cell3, store.state.cell5, store.state.cell7);
-
+  checkPlayerOneWin() {
     if (
-      firstRow.every(checkEveryX) ||
-      secondRow.every(checkEveryX) ||
-      thirdRow.every(checkEveryX) ||
-      forthRow.every(checkEveryX) ||
-      fifthRow.every(checkEveryX) ||
-      sixthRow.every(checkEveryX) ||
-      seventhRow.every(checkEveryX) ||
-      eightRow.every(checkEveryX)
+      checkComboX(store.state.cell1, store.state.cell2, store.state.cell3) ===
+        true ||
+      checkComboX(store.state.cell4, store.state.cell5, store.state.cell6) ===
+        true ||
+      checkComboX(store.state.cell7, store.state.cell8, store.state.cell9) ===
+        true ||
+      checkComboX(store.state.cell1, store.state.cell4, store.state.cell7) ===
+        true ||
+      checkComboX(store.state.cell2, store.state.cell5, store.state.cell8) ===
+        true ||
+      checkComboX(store.state.cell3, store.state.cell6, store.state.cell9) ===
+        true ||
+      checkComboX(store.state.cell1, store.state.cell5, store.state.cell9) ===
+        true ||
+      checkComboX(store.state.cell3, store.state.cell5, store.state.cell7) ===
+        true
     ) {
       store.state.firstPlayerX === true ? firstPlayerWin() : secondPlayerWin();
       clearCells();
-    } else if (
-      firstRow.every(checkEveryO) ||
-      secondRow.every(checkEveryO) ||
-      thirdRow.every(checkEveryO) ||
-      forthRow.every(checkEveryO) ||
-      fifthRow.every(checkEveryO) ||
-      sixthRow.every(checkEveryO) ||
-      seventhRow.every(checkEveryO) ||
-      eightRow.every(checkEveryO)
+    }
+  }
+
+  checkPlayerTwoWin() {
+    if (
+      checkComboO(store.state.cell1, store.state.cell2, store.state.cell3) ===
+        true ||
+      checkComboO(store.state.cell4, store.state.cell5, store.state.cell6) ===
+        true ||
+      checkComboO(store.state.cell7, store.state.cell8, store.state.cell9) ===
+        true ||
+      checkComboO(store.state.cell1, store.state.cell4, store.state.cell7) ===
+        true ||
+      checkComboO(store.state.cell2, store.state.cell5, store.state.cell8) ===
+        true ||
+      checkComboO(store.state.cell3, store.state.cell6, store.state.cell9) ===
+        true ||
+      checkComboO(store.state.cell1, store.state.cell5, store.state.cell9) ===
+        true ||
+      checkComboO(store.state.cell3, store.state.cell5, store.state.cell7) ===
+        true
     ) {
       store.state.firstPlayerX === true ? secondPlayerWin() : firstPlayerWin();
       clearCells();
