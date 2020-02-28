@@ -14,11 +14,11 @@ export default class HeaderComponent extends mainComponent {
           <p class="header">Tic-Tac-Toe!</p>
           <div id="playersWrapper">
              <span class="playerOne">
-               <input type="text" id="playerOne" placeholder="Player-1">
+               <input type="text" id="playerOne" placeholder="Player-1 Name">
                <button class="save" id="savePlayerOne">save</button>
              </span>
              <span class="playerTwo">
-                <input type="text" id="playerTwo" placeholder="Player-2">
+                <input type="text" id="playerTwo" placeholder="Player-2 Name">
                 <button class="save" id="savePlayerTwo">save</button>
              </span>
           </div>

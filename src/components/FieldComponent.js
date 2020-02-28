@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-unused-expressions */
 import mainComponent from "./mainComponent";
@@ -25,22 +26,23 @@ export default class FieldComponent extends mainComponent {
   }
 
   render() {
+    const state = store.state;
     this.anchor.innerHTML = `
       <div class="cellsWrapper">
       <div class="firstRow">
-        <p class="cell" id="1">${store.state.cell1}</p>
-        <p class="cell" id="2">${store.state.cell2}</p>
-        <p class="cell" id="3">${store.state.cell3}</p>
+        <p class="cell" id="1">${state.cell1}</p>
+        <p class="cell" id="2">${state.cell2}</p>
+        <p class="cell" id="3">${state.cell3}</p>
       </div>
       <div class="secondRow">
-        <p class="cell" id="4">${store.state.cell4}</p>
-        <p class="cell" id="5">${store.state.cell5}</p>
-        <p class="cell" id="6">${store.state.cell6}</p>
+        <p class="cell" id="4">${state.cell4}</p>
+        <p class="cell" id="5">${state.cell5}</p>
+        <p class="cell" id="6">${state.cell6}</p>
       </div>
       <div class="thirdRow">
-        <p class="cell" id="7">${store.state.cell7}</p>
-        <p class="cell" id="8">${store.state.cell8}</p>
-        <p class="cell" id="9">${store.state.cell9}</p>
+        <p class="cell" id="7">${state.cell7}</p>
+        <p class="cell" id="8">${state.cell8}</p>
+        <p class="cell" id="9">${state.cell9}</p>
       </div>
       </div>
       `;
@@ -60,49 +62,35 @@ export default class FieldComponent extends mainComponent {
   }
 
   checkPlayerOneWin() {
+    const state = store.state;
     if (
-      checkComboX(store.state.cell1, store.state.cell2, store.state.cell3) ===
-        true ||
-      checkComboX(store.state.cell4, store.state.cell5, store.state.cell6) ===
-        true ||
-      checkComboX(store.state.cell7, store.state.cell8, store.state.cell9) ===
-        true ||
-      checkComboX(store.state.cell1, store.state.cell4, store.state.cell7) ===
-        true ||
-      checkComboX(store.state.cell2, store.state.cell5, store.state.cell8) ===
-        true ||
-      checkComboX(store.state.cell3, store.state.cell6, store.state.cell9) ===
-        true ||
-      checkComboX(store.state.cell1, store.state.cell5, store.state.cell9) ===
-        true ||
-      checkComboX(store.state.cell3, store.state.cell5, store.state.cell7) ===
-        true
+      checkComboX(state.cell1, state.cell2, state.cell3) === true ||
+      checkComboX(state.cell4, state.cell5, state.cell6) === true ||
+      checkComboX(state.cell7, state.cell8, state.cell9) === true ||
+      checkComboX(state.cell1, state.cell4, state.cell7) === true ||
+      checkComboX(state.cell2, state.cell5, state.cell8) === true ||
+      checkComboX(state.cell3, state.cell6, state.cell9) === true ||
+      checkComboX(state.cell1, state.cell5, state.cell9) === true ||
+      checkComboX(state.cell3, state.cell5, state.cell7) === true
     ) {
-      store.state.firstPlayerX === true ? firstPlayerWin() : secondPlayerWin();
+      state.firstPlayerX === true ? firstPlayerWin() : secondPlayerWin();
       clearCells();
     }
   }
 
   checkPlayerTwoWin() {
+    const state = store.state;
     if (
-      checkComboO(store.state.cell1, store.state.cell2, store.state.cell3) ===
-        true ||
-      checkComboO(store.state.cell4, store.state.cell5, store.state.cell6) ===
-        true ||
-      checkComboO(store.state.cell7, store.state.cell8, store.state.cell9) ===
-        true ||
-      checkComboO(store.state.cell1, store.state.cell4, store.state.cell7) ===
-        true ||
-      checkComboO(store.state.cell2, store.state.cell5, store.state.cell8) ===
-        true ||
-      checkComboO(store.state.cell3, store.state.cell6, store.state.cell9) ===
-        true ||
-      checkComboO(store.state.cell1, store.state.cell5, store.state.cell9) ===
-        true ||
-      checkComboO(store.state.cell3, store.state.cell5, store.state.cell7) ===
-        true
+      checkComboO(state.cell1, state.cell2, state.cell3) === true ||
+      checkComboO(state.cell4, state.cell5, state.cell6) === true ||
+      checkComboO(state.cell7, state.cell8, state.cell9) === true ||
+      checkComboO(state.cell1, state.cell4, state.cell7) === true ||
+      checkComboO(state.cell2, state.cell5, state.cell8) === true ||
+      checkComboO(state.cell3, state.cell6, state.cell9) === true ||
+      checkComboO(state.cell1, state.cell5, state.cell9) === true ||
+      checkComboO(state.cell3, state.cell5, state.cell7) === true
     ) {
-      store.state.firstPlayerX === true ? secondPlayerWin() : firstPlayerWin();
+      state.firstPlayerX === true ? secondPlayerWin() : firstPlayerWin();
       clearCells();
     }
   }
