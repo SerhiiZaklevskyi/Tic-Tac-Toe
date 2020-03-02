@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-expressions */
+// eslint-disable-next-line import/no-unresolved
 import mainComponent from "./MainComponent";
 import store from "../Store/index";
 import saveName from "./SaveName";

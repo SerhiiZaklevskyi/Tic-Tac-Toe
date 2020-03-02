@@ -1,8 +1,9 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable class-methods-use-this */
 import mainComponent from "./MainComponent";
 import store from "../Store/index";
-import cellHandler from "./CellHandler";
+import cellHandler from "./СellHandler";
 import combinations from "./Combinations";
 import winner from "./CheckWinner";
 
