@@ -5,21 +5,21 @@
 
 
 .cell {
-    width: 6rem;
+    width: 4rem;
     height: 4rem;
     border: 1px solid black;
-    margin-bottom: -1rem;
+    margin-bottom: -3rem;
     text-align: center;
     color:blue;
-    padding-top: 50%;
+    font-size: 3rem
 }
 
 .cellsWrapper {
     display: flex;
     justify-content: center;
-}
-
-
-.cross {
-    font-size: 4rem;
+    flex-wrap: wrap;
+    padding-left: 40%;
+    width: 13rem;
+    height: 13rem;
+    min-width: 80px;
 }

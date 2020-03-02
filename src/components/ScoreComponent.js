@@ -1,27 +1,24 @@
 /* eslint-disable no-unused-expressions */
-import mainComponent from "./mainComponent";
+import mainComponent from "./MainComponent";
 import store from "../Store/index";
 
 export default class ScoreComponent extends mainComponent {
   constructor() {
     super(store, document.querySelector("#score"));
+    this.onInit();
   }
 
   // eslint-disable-next-line class-methods-use-this
   onInit() {
     const playerOneName = localStorage.getItem("PlayerOneName");
     const playerTwoName = localStorage.getItem("PlayerTwoName");
-    playerOneName !== null
-      ? store.dispatch("addPlayerOne", playerOneName)
-      : null;
-    playerTwoName !== null
-      ? store.dispatch("addPlayerTwo", playerTwoName)
-      : null;
+    playerOneName && store.dispatch("addPlayerOne", playerOneName);
+    playerTwoName && store.dispatch("addPlayerTwo", playerTwoName);
 
     const counterOne = localStorage.getItem("counterOne");
     const counterTwo = localStorage.getItem("counterTwo");
-    counterOne !== null ? store.dispatch("getCounterOne", counterOne) : null;
-    counterTwo !== null ? store.dispatch("getCounterTwo", counterTwo) : null;
+    counterOne && store.dispatch("getCounterOne", counterOne);
+    counterTwo && store.dispatch("getCounterTwo", counterTwo);
   }
 
   render() {

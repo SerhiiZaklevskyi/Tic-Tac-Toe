@@ -1,13 +1,12 @@
-import mainComponent from "./mainComponent";
+/* eslint-disable no-unused-expressions */
+import mainComponent from "./MainComponent";
 import store from "../Store/index";
+import saveName from "./SaveName";
 
 export default class HeaderComponent extends mainComponent {
   constructor() {
     super(store, document.querySelector("#headerWrapper"));
   }
-
-  // eslint-disable-next-line class-methods-use-this
-  onInit() {}
 
   render() {
     this.anchor.innerHTML = `
@@ -25,11 +24,6 @@ export default class HeaderComponent extends mainComponent {
              <span class="startWrapper">
                <button class="resetGame">ResetGame</button>
              </span>
-          <div class="chooseSymbol">
-             <p>Chose your symbol</p>
-             <button class="x-button">X</button>
-             <button class="o-button">O</button>
-          </div>
         `;
     this.setUpListeners();
   }
@@ -37,54 +31,47 @@ export default class HeaderComponent extends mainComponent {
   setUpListeners() {
     const playerOne = this.anchor.querySelector("#playerOne");
     const playerTwo = this.anchor.querySelector("#playerTwo");
-    const savePlayerOne = this.anchor.querySelector("#savePlayerOne");
-    const savePlayerTwo = this.anchor.querySelector("#savePlayerTwo");
-    const reset = this.anchor.querySelector(".resetGame");
-    const xButton = this.anchor.querySelector(".x-button");
-    const oButton = this.anchor.querySelector(".o-button");
+    const chooseSymbol = document.querySelector(".chooseSymbol");
 
-    savePlayerOne.addEventListener("click", () => {
-      if (playerOne.value !== "") {
-        store.dispatch("addPlayerOne", playerOne.value.trim());
-        localStorage.setItem("PlayerOneName", playerOne.value.trim());
-        this.anchor.querySelector(".chooseSymbol").style.display = "block";
-      }
-    });
+    this.anchor
+      .querySelector("#savePlayerOne")
+      .addEventListener("click", () => {
+        saveName("addPlayerOne", "PlayerOneName", playerOne.value);
+      });
 
     playerOne.addEventListener("keypress", event => {
-      if (playerOne.value !== "" && event.key === "Enter") {
-        store.dispatch("addPlayerOne", playerOne.value.trim());
-        localStorage.setItem("PlayerOneName", playerOne.value.trim());
-        this.anchor.querySelector(".chooseSymbol").style.display = "block";
+      if (event.key === "Enter") {
+        saveName("addPlayerOne", "PlayerOneName", playerOne.value);
       }
     });
 
-    savePlayerTwo.addEventListener("click", () => {
-      if (playerTwo.value !== "") {
-        store.dispatch("addPlayerTwo", playerTwo.value.trim());
-        localStorage.setItem("PlayerTwoName", playerTwo.value.trim());
-      }
-    });
+    this.anchor
+      .querySelector("#savePlayerTwo")
+      .addEventListener(
+        "click",
+        saveName("addPlayerTwo", "PlayerTwoName", playerTwo.value)
+      );
 
-    playerTwo.addEventListener("keypress", event => {
-      if (playerTwo.value !== "" && event.key === "Enter") {
-        store.dispatch("addPlayerTwo", playerTwo.value.trim());
-        localStorage.setItem("PlayerTwoName", playerTwo.value.trim());
-      }
-    });
+    playerTwo.addEventListener(
+      "keypress",
+      event =>
+        event.key === "Enter" &&
+        saveName("addPlayerTwo", "PlayerTwoName", playerTwo.value)
+    );
 
-    reset.addEventListener("click", () => {
+    this.anchor.querySelector(".resetGame").addEventListener("click", () => {
+      const cells = Array(9).fill(null);
       localStorage.clear();
       document.querySelector("#winner").innerText = "";
-      store.dispatch("restartGame", 1);
+      store.dispatch("restartGame", cells);
     });
 
-    xButton.addEventListener("click", () => {
-      this.anchor.querySelector(".chooseSymbol").style.display = "none";
+    document.querySelector(".x-button").addEventListener("click", () => {
+      chooseSymbol.classList.remove("invis-off");
     });
 
-    oButton.addEventListener("click", () => {
-      this.anchor.querySelector(".chooseSymbol").style.display = "none";
+    document.querySelector(".o-button").addEventListener("click", () => {
+      chooseSymbol.classList.remove("invis-off");
       store.dispatch("switchPlayer", false);
       store.dispatch("firstPlayerChoseX", false);
     });
