@@ -5,7 +5,7 @@ import mainComponent from "./MainComponent";
 import store from "../Store/index";
 import cellHandler from "./СellHandler";
 import combinations from "./Combinations";
-import winner from "./CheckWinner";
+import resetGame from "./ResetGame";
 
 export default class FieldComponent extends mainComponent {
   constructor() {
@@ -40,15 +40,15 @@ export default class FieldComponent extends mainComponent {
     combinations().forEach(row => {
       if (row.every(cell => cell === "X")) {
         firstPlayerX
-          ? winner(playerOne, "changeCounterOne")
-          : winner(playerTwo, "changeCounterTwo");
+          ? resetGame(playerOne, "changeCounterOne")
+          : resetGame(playerTwo, "changeCounterTwo");
       }
     });
     combinations().forEach(row => {
       if (row.every(cell => cell === "O")) {
         firstPlayerX
-          ? winner(playerTwo, "changeCounterTwo")
-          : winner(playerOne, "changeCounterOne");
+          ? resetGame(playerTwo, "changeCounterTwo")
+          : resetGame(playerOne, "changeCounterOne");
       }
     });
   }

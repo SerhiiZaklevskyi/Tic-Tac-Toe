@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable no-unused-expressions */
 import mainComponent from "./MainComponent";
 import store from "../Store/index";
@@ -15,8 +16,8 @@ export default class ScoreComponent extends mainComponent {
     playerOneName && store.dispatch("addPlayerOne", playerOneName);
     playerTwoName && store.dispatch("addPlayerTwo", playerTwoName);
 
-    const counterOne = localStorage.getItem("counterOne");
-    const counterTwo = localStorage.getItem("counterTwo");
+    const counterOne = JSON.parse(localStorage.getItem("counterOne"));
+    const counterTwo = JSON.parse(localStorage.getItem("counterTwo"));
     counterOne && store.dispatch("getCounterOne", counterOne);
     counterTwo && store.dispatch("getCounterTwo", counterTwo);
   }
