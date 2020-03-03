@@ -3,6 +3,7 @@
 import mainComponent from "./MainComponent";
 import store from "../Store/index";
 import saveName from "./SaveName";
+import symbolListeners from "./ChooseSymbol";
 
 export default class HeaderComponent extends mainComponent {
   constructor() {
@@ -22,7 +23,7 @@ export default class HeaderComponent extends mainComponent {
                 <button class="save" id="savePlayerTwo">save</button>
              </span>
           </div>
-             <span class="startWrapper">
+             <span class="resetWrapper">
                <button class="resetGame">ResetGame</button>
              </span>
         `;
@@ -32,7 +33,7 @@ export default class HeaderComponent extends mainComponent {
   setUpListeners() {
     const playerOne = this.anchor.querySelector("#playerOne");
     const playerTwo = this.anchor.querySelector("#playerTwo");
-    const chooseSymbol = document.querySelector(".chooseSymbol");
+    symbolListeners();
 
     this.anchor
       .querySelector("#savePlayerOne")
@@ -64,17 +65,6 @@ export default class HeaderComponent extends mainComponent {
       localStorage.clear();
       document.querySelector("#winner").innerText = "";
       store.dispatch("restartGame", cells);
-    });
-
-    document.querySelector(".x-button").addEventListener("click", () => {
-      chooseSymbol.classList.remove("invis-off");
-    });
-
-    document.querySelector(".o-button").addEventListener("click", () => {
-      chooseSymbol.classList.remove("invis-off");
-      store.dispatch("switchPlayer", false);
-      store.dispatch("firstPlayerChoseX", false);
-      localStorage.setItem("firstPlayerX", JSON.stringify(false));
     });
   }
 }
