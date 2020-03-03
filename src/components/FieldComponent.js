@@ -11,13 +11,21 @@ export default class FieldComponent extends mainComponent {
   constructor() {
     super(store, document.querySelector("#gameField"));
     this.onInit();
+    this.switchPlayer = this.switchPlayer.bind(this);
+  }
+
+  setItem(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
   }
 
   onInit() {
-    const cells = JSON.parse(localStorage.getItem("cells"));
-    if (cells) {
-      store.dispatch("changeCell", cells);
-    }
+    const getItem = key => JSON.parse(localStorage.getItem(key));
+    const cells = getItem("cells");
+    const turn = getItem("turn");
+    const firstPlayerX = getItem("firstPlayerX");
+    cells && store.dispatch("changeCell", cells);
+    turn !== null && store.dispatch("switchPlayer", turn);
+    firstPlayerX !== null && store.dispatch("firstPlayerChoseX", firstPlayerX);
   }
 
   render() {
@@ -63,12 +71,14 @@ export default class FieldComponent extends mainComponent {
           value: "X"
         };
         store.dispatch("switchPlayer", false);
+        this.setItem("turn", false);
       } else if (firstPlayerMove === false && event.target.innerText === "") {
         target = {
           id: event.target.id,
           value: "O"
         };
         store.dispatch("switchPlayer", true);
+        this.setItem("turn", true);
       } else return;
       cellHandler(target.id, target.value);
     }

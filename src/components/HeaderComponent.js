@@ -41,9 +41,8 @@ export default class HeaderComponent extends mainComponent {
       });
 
     playerOne.addEventListener("keypress", event => {
-      if (event.key === "Enter") {
+      event.key === "Enter" &&
         saveName("addPlayerOne", "PlayerOneName", playerOne.value);
-      }
     });
 
     this.anchor
@@ -75,6 +74,7 @@ export default class HeaderComponent extends mainComponent {
       chooseSymbol.classList.remove("invis-off");
       store.dispatch("switchPlayer", false);
       store.dispatch("firstPlayerChoseX", false);
+      localStorage.setItem("firstPlayerX", JSON.stringify(false));
     });
   }
 }

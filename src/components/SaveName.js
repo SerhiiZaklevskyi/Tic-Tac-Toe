@@ -4,7 +4,7 @@ import store from "../Store/index";
 const saveName = (actionType, playerName, value) => {
   if (value) {
     store.dispatch(actionType, value.trim());
-    localStorage.setItem(playerName, value.trim());
+    localStorage.setItem(playerName, JSON.stringify(value));
     if (actionType === "addPlayerOne") {
       store.state.cells.every(cell => cell === null) &&
         document.querySelector(".chooseSymbol").classList.add("invis-off");

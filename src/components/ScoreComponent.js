@@ -11,13 +11,14 @@ export default class ScoreComponent extends mainComponent {
 
   // eslint-disable-next-line class-methods-use-this
   onInit() {
-    const playerOneName = localStorage.getItem("PlayerOneName");
-    const playerTwoName = localStorage.getItem("PlayerTwoName");
+    const getItem = key => JSON.parse(localStorage.getItem(key));
+    const playerOneName = getItem("PlayerOneName");
+    const playerTwoName = getItem("PlayerTwoName");
     playerOneName && store.dispatch("addPlayerOne", playerOneName);
     playerTwoName && store.dispatch("addPlayerTwo", playerTwoName);
 
-    const counterOne = JSON.parse(localStorage.getItem("counterOne"));
-    const counterTwo = JSON.parse(localStorage.getItem("counterTwo"));
+    const counterOne = getItem("counterOne");
+    const counterTwo = getItem("counterTwo");
     counterOne && store.dispatch("getCounterOne", counterOne);
     counterTwo && store.dispatch("getCounterTwo", counterTwo);
   }
