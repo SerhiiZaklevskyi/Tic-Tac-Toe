@@ -16,4 +16,8 @@ export default class Observer {
     }
     this.subscribers[event].forEach(callback => callback(value));
   }
+
+  unsubscribe(event, callback) {
+    this.subscribers[event].filter(fn => fn !== callback);
+  }
 }

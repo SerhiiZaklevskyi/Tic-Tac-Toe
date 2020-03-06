@@ -7,15 +7,9 @@ const setItem = (key, value) =>
 const clearCells = () => {
   const cells = Array(9).fill(null);
   localStorage.removeItem("cells");
-  if (store.state.firstPlayerX) {
-    store.dispatch("resetGame", { cells, value: true });
-    setItem("turn", true);
-  } else {
-    store.dispatch("resetGame", { cells, value: false });
-    setItem("turn", false);
-  }
+  store.dispatch("resetGame", { cells, value: !!store.state.firstPlayerX });
+  setItem("turn", !!store.state.firstPlayerX);
 };
-
 const resetGame = (player, counter) => {
   clearCells();
   document.querySelector("#winner").innerText = `${player} WON!`;

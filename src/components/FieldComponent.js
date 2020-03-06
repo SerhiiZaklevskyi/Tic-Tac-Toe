@@ -3,14 +3,14 @@
 /* eslint-disable class-methods-use-this */
 import mainComponent from "./MainComponent";
 import store from "../Store/index";
-import cellHandler from "./СellHandler";
-import combinations from "./Combinations";
-import resetGame from "./ResetGame";
+import cellHandler from "../utils/cellHandler";
+import combinations from "../utils/combinations";
+import resetGame from "../utils/onVictory";
+import fireAction from "../utils/action-util"
 
 export default class FieldComponent extends mainComponent {
-  constructor() {
-    super(store, document.querySelector("#gameField"));
-    this.onInit();
+  constructor(ref) {
+    super(ref);
     this.switchPlayer = this.switchPlayer.bind(this);
   }
 
@@ -18,14 +18,34 @@ export default class FieldComponent extends mainComponent {
     localStorage.setItem(key, JSON.stringify(value));
   }
 
-  onInit() {
-    const getItem = key => JSON.parse(localStorage.getItem(key));
-    const cells = getItem("cells");
-    const turn = getItem("turn");
-    const firstPlayerX = getItem("firstPlayerX");
-    cells && store.dispatch("changeCell", cells);
-    turn !== null && store.dispatch("switchPlayer", turn);
-    firstPlayerX !== null && store.dispatch("firstPlayerChoseX", firstPlayerX);
+
+  static ITEMS = [
+    {
+      actionName: 'changeCell',
+      itemName: 'cells'
+    },
+    {
+      actionName: 'switchPlayer',
+      itemName: 'turn'
+    },
+    {
+      actionName: 'firstPlayerChoseX',
+      itemName: 'firstPlayerX'
+    }
+  ]
+
+  callback() {}
+
+  onMount() {
+    super.onMount();
+    window.addEventListener("click", this.callback);
+    FieldComponent.ITEMS.forEach(fireAction);
+  }
+
+  onDestroy() {
+    super.onDestroy();
+    this.anchor.innerHTML = null;
+    window.removeEventListener("event", this.callback);
   }
 
   render() {
@@ -51,9 +71,7 @@ export default class FieldComponent extends mainComponent {
           ? resetGame(playerOne, "changeCounterOne")
           : resetGame(playerTwo, "changeCounterTwo");
       }
-    });
-    combinations().forEach(row => {
-      if (row.every(cell => cell === "O")) {
+      else if (row.every(cell => cell === "O")) {
         firstPlayerX
           ? resetGame(playerTwo, "changeCounterTwo")
           : resetGame(playerOne, "changeCounterOne");

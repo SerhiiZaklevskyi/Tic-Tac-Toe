@@ -2,27 +2,38 @@
 /* eslint-disable no-unused-expressions */
 import mainComponent from "./MainComponent";
 import store from "../Store/index";
+import fireAction from "../utils/action-util"
 
 export default class ScoreComponent extends mainComponent {
-  constructor() {
-    super(store, document.querySelector("#score"));
-    this.onInit();
+  constructor(ref) {
+    super(ref);
   }
+  
+  onMount() {
+    super.onMount();
+    ScoreComponent.ITEMS.forEach(fireAction);
+  }
+
+  static ITEMS = [
+    {
+      actionName: 'addPlayerOne',
+      itemName: 'PlayerOneName'
+    },
+    {
+      actionName: 'addPlayerTwo',
+      itemName: 'PlayerTwoName'
+    },
+    {
+      actionName: 'getCounterOne',
+      itemName: 'counterOne'
+    },
+    {
+      actionName: 'getCounterTwo',
+      itemName: 'counterTwo'
+    },
+  ]
 
   // eslint-disable-next-line class-methods-use-this
-  onInit() {
-    const getItem = key => JSON.parse(localStorage.getItem(key));
-    const playerOneName = getItem("PlayerOneName");
-    const playerTwoName = getItem("PlayerTwoName");
-    playerOneName && store.dispatch("addPlayerOne", playerOneName);
-    playerTwoName && store.dispatch("addPlayerTwo", playerTwoName);
-
-    const counterOne = getItem("counterOne");
-    const counterTwo = getItem("counterTwo");
-    counterOne && store.dispatch("getCounterOne", counterOne);
-    counterTwo && store.dispatch("getCounterTwo", counterTwo);
-  }
-
   render() {
     this.anchor.innerHTML = `
         <p id="firstPlayer">${store.state.playerOne}: ${store.state.counterOne}</p>

@@ -1,13 +1,28 @@
+/* eslint-disable no-useless-constructor */
+/* eslint-disable class-methods-use-this */
 /* eslint-disable no-unused-expressions */
 // eslint-disable-next-line import/no-unresolved
 import mainComponent from "./MainComponent";
 import store from "../Store/index";
-import saveName from "./SaveName";
-import symbolListeners from "./ChooseSymbol";
+import saveName from "../utils/saveName";
+import symbolListeners from "../utils/chooseSymbol";
 
 export default class HeaderComponent extends mainComponent {
-  constructor() {
-    super(store, document.querySelector("#headerWrapper"));
+  constructor(ref) {
+    super(ref);
+  }
+
+  callback() {}
+
+  onMount() {
+    super.onMount();
+    window.addEventListener("event", this.callback);
+  }
+
+  onDestroy() {
+    super.onDestroy();
+    this.anchor.innerHTML = null;
+    window.removeEventListener("event", this.callback);
   }
 
   render() {
@@ -48,8 +63,7 @@ export default class HeaderComponent extends mainComponent {
 
     this.anchor
       .querySelector("#savePlayerTwo")
-      .addEventListener(
-        "click",
+      .addEventListener("click", () =>
         saveName("addPlayerTwo", "PlayerTwoName", playerTwo.value)
       );
 
