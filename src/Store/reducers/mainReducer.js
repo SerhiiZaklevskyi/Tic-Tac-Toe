@@ -4,11 +4,10 @@ import resetReducer from "./resetReducer";
 import fieldReducer from "./fieldReducer";
 
 export default function createReducers() {
-  const combineReducer = {
+  return {
     ...playersReducer(),
     ...counterReducer(),
     ...resetReducer(),
     ...fieldReducer()
   };
-  return combineReducer;
 }

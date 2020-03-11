@@ -13,8 +13,10 @@ export default function resetReducer() {
       playerTwo: "PlayerTwo",
       cells: payload,
       firstPlayerMove: true,
+      firstPlayerX: true,
       counterOne: 0,
-      counterTwo: 0
+      counterTwo: 0,
+      winner: ""
     })
   };
 }

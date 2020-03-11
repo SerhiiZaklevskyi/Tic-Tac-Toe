@@ -1,14 +1,10 @@
-/* eslint-disable no-unused-expressions */
 import store from "../Store/index";
 
-const saveName = (actionType, playerName, value) => {
+const saveName = (...args) => {
+  const [actionType, playerName, value] = args[0];
   if (value) {
     store.dispatch(actionType, value.trim());
     localStorage.setItem(playerName, JSON.stringify(value));
-    if (actionType === "addPlayerOne") {
-      store.state.cells.every(cell => cell === null) &&
-        document.querySelector(".chooseSymbol").classList.add("invis-off");
-    }
   }
 };
 

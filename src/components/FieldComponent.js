@@ -1,40 +1,37 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable class-methods-use-this */
-import mainComponent from "./MainComponent";
+import MainComponent from "./MainComponent";
 import store from "../Store/index";
 import cellHandler from "../utils/cellHandler";
 import combinations from "../utils/combinations";
 import resetGame from "../utils/onVictory";
-import fireAction from "../utils/action-util"
+import fireAction from "../utils/action-util";
+import handleCellsView from "../utils/handleCellsView";
 
-export default class FieldComponent extends mainComponent {
+export default class FieldComponent extends MainComponent {
   constructor(ref) {
     super(ref);
-    this.switchPlayer = this.switchPlayer.bind(this);
+    this.render = this.render.bind(this);
   }
-
-  setItem(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
-  }
-
 
   static ITEMS = [
     {
-      actionName: 'changeCell',
-      itemName: 'cells'
+      actionName: "changeCell",
+      itemName: "cells"
     },
     {
-      actionName: 'switchPlayer',
-      itemName: 'turn'
+      actionName: "switchPlayer",
+      itemName: "turn"
     },
     {
-      actionName: 'firstPlayerChoseX',
-      itemName: 'firstPlayerX'
+      actionName: "firstPlayerChoseX",
+      itemName: "firstPlayerX"
     }
-  ]
+  ];
 
-  callback() {}
+  callback = event => {
+    this.switchPlayer(event);
+    this.checkWinner(event);
+    this.defaultSymbol(event);
+  };
 
   onMount() {
     super.onMount();
@@ -45,69 +42,35 @@ export default class FieldComponent extends mainComponent {
   onDestroy() {
     super.onDestroy();
     this.anchor.innerHTML = null;
-    window.removeEventListener("event", this.callback);
+    window.removeEventListener("click", this.callback);
   }
 
   render() {
     this.anchor.innerHTML = `
+    <div id="winner">Winner : ${store.state.winner}</div>
       <div class="cellsWrapper">
-      ${store.state.cells
-        .map((cell, index) =>
-          cell
-            ? `<p class="cell" id="${index}">${cell}</p>`
-            : `<p class="cell" id="${index}"></p>`
-        )
-        .join("")}
+      ${store.state.cells.map(handleCellsView).join("")}
       </div>
       `;
-    this.setupListeners();
   }
 
   checkWinner() {
-    const { firstPlayerX, playerOne, playerTwo } = store.state;
-    combinations().forEach(row => {
-      if (row.every(cell => cell === "X")) {
-        firstPlayerX
-          ? resetGame(playerOne, "changeCounterOne")
-          : resetGame(playerTwo, "changeCounterTwo");
-      }
-      else if (row.every(cell => cell === "O")) {
-        firstPlayerX
-          ? resetGame(playerTwo, "changeCounterTwo")
-          : resetGame(playerOne, "changeCounterOne");
-      }
-    });
+    resetGame(combinations(), store.state.firstPlayerX);
   }
 
-  switchPlayer(event) {
-    const { firstPlayerMove } = store.state;
-    if (event.target.classList.contains("cell")) {
-      let target;
-      if (firstPlayerMove === true && event.target.innerText === "") {
-        target = {
-          id: event.target.id,
-          value: "X"
-        };
-        store.dispatch("switchPlayer", false);
-        this.setItem("turn", false);
-      } else if (firstPlayerMove === false && event.target.innerText === "") {
-        target = {
-          id: event.target.id,
-          value: "O"
-        };
-        store.dispatch("switchPlayer", true);
-        this.setItem("turn", true);
-      } else return;
-      cellHandler(target.id, target.value);
-    }
+  switchPlayer({ target: { innerText, id, classList } }) {
+    const {
+      state: { firstPlayerMove }
+    } = store;
+    if (!classList.contains("cell") || innerText !== "") return;
+    store.dispatch("switchPlayer", !firstPlayerMove);
+    this.setItem("turn", !firstPlayerMove);
+    cellHandler(id, firstPlayerMove ? "X" : "O");
   }
 
-  setupListeners() {
-    this.anchor
-      .querySelector(".cellsWrapper")
-      .addEventListener("click", this.switchPlayer);
-    this.anchor
-      .querySelector(".cellsWrapper")
-      .addEventListener("click", this.checkWinner);
+  defaultSymbol({ target: { classList, innerText } }) {
+    if (!classList.contains("cell" || innerText !== "")) return;
+    document.querySelector(".chooseSymbol").classList.add("invis-on");
+    this.setItem("symbol", true);
   }
 }

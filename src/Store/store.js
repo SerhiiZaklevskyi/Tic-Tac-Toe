@@ -10,7 +10,8 @@ export default class Store {
       firstPlayerMove: true,
       counterOne: 0,
       counterTwo: 0,
-      firstPlayerX: true
+      firstPlayerX: true,
+      winner: ""
     };
     this.events = new Observer();
   }

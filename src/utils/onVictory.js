@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 import store from "../Store/index";
 
 const setItem = (key, value) =>
@@ -10,12 +9,21 @@ const clearCells = () => {
   store.dispatch("resetGame", { cells, value: !!store.state.firstPlayerX });
   setItem("turn", !!store.state.firstPlayerX);
 };
-const resetGame = (player, counter) => {
+
+// не знаю как сделать лучше
+const restartGame = (symbol, firstPlayerX) => {
+  const { playerOne, playerTwo } = store.state;
+  if (!symbol) return;
+  if (symbol === "X") {
+    store.dispatch("showWinner", firstPlayerX ? playerOne : playerTwo);
+    store.dispatch(firstPlayerX ? "changeCounterOne" : "changeCounterTwo", 1);
+  } else {
+    store.dispatch("showWinner", firstPlayerX ? playerTwo : playerOne);
+    store.dispatch(firstPlayerX ? "changeCounterTwo" : "changeCounterOne", 1);
+  }
   clearCells();
-  document.querySelector("#winner").innerText = `${player} WON!`;
-  store.dispatch(counter, 1);
   setItem("counterOne", store.state.counterOne);
   setItem("counterTwo", store.state.counterTwo);
 };
 
-export default resetGame;
+export default restartGame;

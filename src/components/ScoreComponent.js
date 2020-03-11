@@ -1,14 +1,15 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-unused-expressions */
-import mainComponent from "./MainComponent";
+import MainComponent from "./MainComponent";
 import store from "../Store/index";
-import fireAction from "../utils/action-util"
+import fireAction from "../utils/action-util";
 
-export default class ScoreComponent extends mainComponent {
+export default class ScoreComponent extends MainComponent {
   constructor(ref) {
     super(ref);
+    this.render = this.render.bind(this);
   }
-  
+
   onMount() {
     super.onMount();
     ScoreComponent.ITEMS.forEach(fireAction);
@@ -16,22 +17,22 @@ export default class ScoreComponent extends mainComponent {
 
   static ITEMS = [
     {
-      actionName: 'addPlayerOne',
-      itemName: 'PlayerOneName'
+      actionName: "addPlayerOne",
+      itemName: "PlayerOneName"
     },
     {
-      actionName: 'addPlayerTwo',
-      itemName: 'PlayerTwoName'
+      actionName: "addPlayerTwo",
+      itemName: "PlayerTwoName"
     },
     {
-      actionName: 'getCounterOne',
-      itemName: 'counterOne'
+      actionName: "getCounterOne",
+      itemName: "counterOne"
     },
     {
-      actionName: 'getCounterTwo',
-      itemName: 'counterTwo'
-    },
-  ]
+      actionName: "getCounterTwo",
+      itemName: "counterTwo"
+    }
+  ];
 
   // eslint-disable-next-line class-methods-use-this
   render() {

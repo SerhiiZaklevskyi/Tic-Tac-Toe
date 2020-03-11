@@ -1,18 +1,25 @@
+/* eslint-disable no-plusplus */
 import store from "../Store/index";
 
 const combinations = () => {
   const { cells } = store.state;
   const combination = [
-    [cells[0], cells[1], cells[2]],
-    [cells[3], cells[4], cells[5]],
-    [cells[6], cells[7], cells[8]],
-    [cells[0], cells[3], cells[6]],
-    [cells[1], cells[4], cells[7]],
-    [cells[2], cells[5], cells[8]],
-    [cells[0], cells[4], cells[8]],
-    [cells[2], cells[4], cells[6]]
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
   ];
-  return combination;
+  for (let i = 0; i < combination.length; i++) {
+    const [a, b, c] = combination[i];
+    if (cells[a] && cells[a] === cells[b] && cells[a] === cells[c]) {
+      return cells[a];
+    }
+  }
+  return null;
 };
 
 export default combinations;

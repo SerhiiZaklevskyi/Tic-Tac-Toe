@@ -13,6 +13,11 @@ export default function fieldReducer() {
     firstPlayerChoseX: (payload, state) => ({
       ...state,
       firstPlayerX: payload
+    }),
+
+    showWinner: (payload, state) => ({
+      ...state,
+      winner: payload
     })
   };
 }
