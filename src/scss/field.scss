@@ -1,17 +1,25 @@
 #gameField {
-    padding-top: 2rem;
-    width: 90%;
+    padding-top: 5rem;
+    width: 80%;
 }
 
 
 .cell {
-    width: 6rem;
-    height: 6rem;
+    width: 4rem;
+    height: 4rem;
     border: 1px solid black;
-    margin-bottom: -1rem
+    margin-bottom: -3rem;
+    text-align: center;
+    color:blue;
+    font-size: 3rem
 }
 
 .cellsWrapper {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    padding-left: 40%;
+    width: 13rem;
+    height: 13rem;
+    min-width: 80px;
 }

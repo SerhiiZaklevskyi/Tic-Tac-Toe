@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "core-js": "^3.0.1",
     "del": "^4.1.0",
     "gulp": "^4.0.2",
@@ -14,14 +15,40 @@
     "@babel/preset-env": "^7.4.3",
     "babel-loader": "^8.0.5",
     "browser-sync": "^2.26.3",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-prettier": "^3.1.2",
     "gulp-autoprefixer": "^6.0.0",
     "gulp-clean-css": "^4.0.0",
     "gulp-sass": "^4.0.2",
+    "husky": "^4.2.3",
+    "prettier": "^1.19.1",
     "webpack": "^4.30.0",
-    "webpack-stream": "^5.2.1"
+    "webpack-stream": "^5.2.1",
+    "lint-staged": "^10.0.8"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "scripts": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "./src/*.{js,jsx,ts,tsx}": [
+      "npx prettier --write",
+      "eslint src/*.js --fix-dry-run"
+    ]
+  },
+  "babel": {
+    "presets": [
+    "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+     ]
   },
   "author": "",
   "license": "ISC"
