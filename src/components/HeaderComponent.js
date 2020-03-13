@@ -6,6 +6,8 @@ export default class HeaderComponent extends MainComponent {
   constructor(ref) {
     super(ref);
     this.render = this.render.bind(this);
+    this.onMount();
+    this.render();
   }
 
   callback = event => {
@@ -71,7 +73,6 @@ export default class HeaderComponent extends MainComponent {
     document.querySelector(".chooseSymbol").classList.remove("invis-on");
   }
 
-  // не знаю как сделать лучше
   handleName({ target: { classList } }) {
     const playerOne = this.anchor.querySelector(".playerOne");
     const playerTwo = this.anchor.querySelector(".playerTwo");
@@ -93,7 +94,6 @@ export default class HeaderComponent extends MainComponent {
       );
     }
   }
-  //........
 
   chooseSymbol({ target: { classList } }) {
     if (!classList.contains("symbol")) return;

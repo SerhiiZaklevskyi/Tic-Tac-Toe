@@ -8,6 +8,8 @@ export default class ScoreComponent extends MainComponent {
   constructor(ref) {
     super(ref);
     this.render = this.render.bind(this);
+    this.render();
+    this.onMount();
   }
 
   onMount() {

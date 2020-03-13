@@ -2,7 +2,7 @@ import MainComponent from "./MainComponent";
 import store from "../Store/index";
 import cellHandler from "../utils/cellHandler";
 import combinations from "../utils/combinations";
-import resetGame from "../utils/onVictory";
+import onVictory from "../utils/onVictory";
 import fireAction from "../utils/action-util";
 import handleCellsView from "../utils/handleCellsView";
 
@@ -10,6 +10,8 @@ export default class FieldComponent extends MainComponent {
   constructor(ref) {
     super(ref);
     this.render = this.render.bind(this);
+    this.render();
+    this.onMount();
   }
 
   static ITEMS = [
@@ -55,7 +57,7 @@ export default class FieldComponent extends MainComponent {
   }
 
   checkWinner() {
-    resetGame(combinations(), store.state.firstPlayerX);
+    onVictory(combinations(), store.state.firstPlayerX);
   }
 
   switchPlayer({ target: { innerText, id, classList } }) {
