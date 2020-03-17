@@ -1,29 +1,35 @@
+/* eslint-disable no-unused-expressions */
 import store from "../Store/index";
 
 const setItem = (key, value) =>
   localStorage.setItem(key, JSON.stringify(value));
 
+const firstPlayerWon = () => {
+  store.dispatch("showWinner", store.state.playerOne);
+  store.dispatch("changeCounterOne", 1);
+  setItem("counterOne", store.state.counterOne);
+};
+
+const secondPlayerWon = () => {
+  store.dispatch("showWinner", store.state.playerTwo);
+  store.dispatch("changeCounterTwo", 1);
+  setItem("counterTwo", store.state.counterTwo);
+};
+
 const clearCells = () => {
   const cells = Array(9).fill(null);
   localStorage.removeItem("cells");
   store.dispatch("resetGame", { cells, value: !!store.state.firstPlayerX });
-  setItem("turn", !!store.state.firstPlayerX);
 };
 
-// не знаю как сделать лучше
-const restartGame = (symbol, firstPlayerX) => {
-  const { playerOne, playerTwo } = store.state;
+const onVictory = (symbol, firstPlayerX) => {
   if (!symbol) return;
   if (symbol === "X") {
-    store.dispatch("showWinner", firstPlayerX ? playerOne : playerTwo);
-    store.dispatch(firstPlayerX ? "changeCounterOne" : "changeCounterTwo", 1);
+    firstPlayerX ? firstPlayerWon() : secondPlayerWon();
   } else {
-    store.dispatch("showWinner", firstPlayerX ? playerTwo : playerOne);
-    store.dispatch(firstPlayerX ? "changeCounterTwo" : "changeCounterOne", 1);
+    firstPlayerX ? secondPlayerWon() : firstPlayerWon();
   }
   clearCells();
-  setItem("counterOne", store.state.counterOne);
-  setItem("counterTwo", store.state.counterTwo);
+  setItem("turn", !!firstPlayerX);
 };
-
-export default restartGame;
+export default onVictory;
